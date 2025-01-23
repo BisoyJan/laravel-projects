@@ -2,8 +2,16 @@
 
 @section('title', 'Add task')
 
+@section('styles')
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0, 8rem;
+        }
+    </style>
+@endsection
+
 @section('content')
-    {{ $errors }}
 
     <form method="POST" action="{{ route('tasks.store') }}">
         @csrf
@@ -13,6 +21,9 @@
                 Title
             </label>
             <input type="text" name="title" id="title" />
+            @error('title')
+                <p class="error-message">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -20,6 +31,9 @@
                 Description
             </label>
             <textarea rows="5" name="description" id="description"></textarea>
+            @error('description')
+                <p class="error-message">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -27,6 +41,9 @@
                 Long Description
             </label>
             <textarea rows="10" name="long_description" id="long_description"></textarea>
+            @error('long_description')
+                <p class="error-message">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
