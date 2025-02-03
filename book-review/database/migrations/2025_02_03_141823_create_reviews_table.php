@@ -13,10 +13,17 @@ return new class extends Migration {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('book_id');
+
             $table->text('review');
             $table->unsignedTinyInteger('rating');
 
             $table->timestamps();
+
+            $table->foreign('book_id')->references('id')->on('books')
+                ->onDelete('cascade');
+
+            //$table->foreignId('book_id')->constrained()->onDelete('cascade'); // alternative shorter way to define foreign key constraint reference line 16 and 23
         });
     }
 
