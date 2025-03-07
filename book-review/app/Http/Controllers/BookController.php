@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class BookController extends Controller
 {
@@ -13,6 +12,29 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
+        /**
+         * Retrieves and filters books based on search criteria and ratings.
+         *
+         * @param Request $request Contains the following query parameters:
+         *                         - title: String to filter books by title
+         *                         - filter: String to sort/filter books by popularity or rating
+         *                                  Possible values: 'popular_last_month', 'popular_last_6months',
+         *                                                 'highest_rated_last_month', 'highest_rated_last_6months'
+         *
+         * @return \Illuminate\View\View Returns view 'books.index' with paginated books data
+         *                              Books are filtered by title if provided and sorted based on filter parameter
+         *                              Default sorting is by latest with average rating and review count
+         *
+         * @uses Book::title() Scope to filter books by title
+         * @uses Book::popularLastMonth() Scope to get popular books from last month
+         * @uses Book::popularLast6Months() Scope to get popular books from last 6 months
+         * @uses Book::highestRatedLastMonth() Scope to get highest rated books from last month
+         * @uses Book::highestRatedLast6Months() Scope to get highest rated books from last 6 months
+         * @uses Book::withAvgRating() Scope to include average rating
+         * @uses Book::withReviewsCount() Scope to include review count
+         *
+         * Note: Cache implementation is currently commented out
+         */
         $title = $request->input('title');
         $filter = $request->input('filter', '');
 
@@ -26,17 +48,50 @@ class BookController extends Controller
             'popular_last_6months' => $books->popularLast6Months(),
             'highest_rated_last_month' => $books->highestRatedLastMonth(),
             'highest_rated_last_6months' => $books->highestRatedLast6Months(),
-            default => $books->latest()
+            default => $books->latest()->withAvgRating()->withReviewsCount()
         };
 
-        /* The code snippet ` = 'books:' .  . ':' . ;` is creating a unique cache
-        key based on the filter and title values. This key is used to store and retrieve the result
-        of the query from the cache. */
         $cacheKey = 'books:' . $filter . ':' . $title;
-        $books = cache()->remember($cacheKey, 3600, fn() => $books->get());
+        $books =
+            // cache()->remember(
+            // $cacheKey,
+            // 3600,
+            // fn() =>
+            $books->paginate(10)->withQueryString();  // Changed from get() to paginate(10)
+        // );
 
         return view('books.index', ['books' => $books]);
     }
+
+    // pagination withQueryString() method is used to append the current query string to the pagination links. This method is useful when you want to preserve the current query string parameters across pagination links. it has also cache() method to cache the query result for a specific time.
+
+    // public function index(Request $request)
+    // {
+    //     $title = $request->input('title');
+    //     $filter = $request->input('filter', '');
+
+    //     $books = Book::when(
+    //         $title,
+    //         fn($query, $title) => $query->title($title)
+    //     );
+
+    //     $books = match ($filter) {
+    //         'popular_last_month' => $books->popularLastMonth(),
+    //         'popular_last_6months' => $books->popularLast6Months(),
+    //         'highest_rated_last_month' => $books->highestRatedLastMonth(),
+    //         'highest_rated_last_6months' => $books->highestRatedLast6Months(),
+    //         default => $books->latest()->withAvgRating()->withReviewsCount()
+    //     };
+
+    //     $cacheKey = 'books:' . $filter . ':' . $title;
+    //     $books = cache()->remember(
+    //         $cacheKey,
+    //         3600,
+    //         fn() => $books->paginate(10)->withQueryString()
+    //     );
+
+    //     return view('books.index', ['books' => $books]);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -57,19 +112,21 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(int $id)
     {
-        $cacheKey = 'book:' . $book->id;
-        $book = cache()->remember($cacheKey, 3600, fn() => $book->load([
-            'reviews' => fn($query) => $query->latest()
-        ]));
+        $cacheKey = 'book:' . $id;
 
-        return view(
-            'books.show',
-            ['book' => $book]
+        $book = cache()->remember(
+            $cacheKey,
+            3600,
+            fn() =>
+            Book::with([
+                'reviews' => fn($query) => $query->latest()
+            ])->withAvgRating()->withReviewsCount()->findOrFail($id)
         );
-    }
 
+        return view('books.show', ['book' => $book]);
+    }
 
     /**
      * Show the form for editing the specified resource.
