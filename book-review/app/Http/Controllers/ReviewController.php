@@ -4,19 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
 
-class ReviewController extends BaseController
+class ReviewController extends Controller
 {
-
-    /**
-     * The function sets a middleware throttle named 'reviews' for the 'store' method.
-     */
-    public function __construct()
-    {
-        $this->middleware('throttle:reviews')->only(['store']);
-    }
-
     /**
      * Display a listing of the resource.
      */

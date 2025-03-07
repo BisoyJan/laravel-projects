@@ -23,6 +23,12 @@
         </a>
     </div>
 
+    <div class="mb-4">
+        <a href="{{ route('books.index') }}" class="reset-link">
+            Back to list
+        </a>
+    </div>
+
     <div>
         <h2 class="mb-4 text-xl font-semibold">Reviews</h2>
         <ul>
