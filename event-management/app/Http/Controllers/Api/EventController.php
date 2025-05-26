@@ -9,11 +9,12 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
-
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EventController extends Controller implements HasMiddleware
 {
-    use CanLoadRelationships;
+    use CanLoadRelationships, AuthorizesRequests;
 
     private array $relations = ['user', 'attendees', 'attendees.user'];
 
@@ -70,6 +71,13 @@ class EventController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Event $event)
     {
+        // if (Gate::denies('update-event', $event)) {
+        //     abort(403, 'You are not authorized to perform this action.');
+        //     //return response()->json(['message' => 'Unauthorized'], 403);
+        // }
+
+        $this->authorize('update-event', $event);
+
         $event->update(
             $request->validate([
                 'name' => 'sometimes|string|max:255',
