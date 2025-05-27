@@ -21,7 +21,7 @@ class EventController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth:sanctum', except: ['index', 'show']),
+            new Middleware('auth:sanctum', only: ['store', 'update']),
         ];
     }
 
@@ -30,7 +30,7 @@ class EventController extends Controller implements HasMiddleware
      */
     public function index()
     {
-
+        Gate::authorize('viewAny', Event::class);
         $query = $this->loadRelationships(Event::query());
 
         return EventResource::collection(
@@ -45,6 +45,7 @@ class EventController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
 
+        Gate::authorize('create', Event::class);
         $event = Event::create([
             ...$request->validate([
                 'name' => 'required|string|max:255',
@@ -63,6 +64,7 @@ class EventController extends Controller implements HasMiddleware
      */
     public function show(Event $event)
     {
+        Gate::authorize('view', $event);
         return new EventResource($this->loadRelationships($event));
     }
 
@@ -76,8 +78,9 @@ class EventController extends Controller implements HasMiddleware
         //     //return response()->json(['message' => 'Unauthorized'], 403);
         // }
 
-        $this->authorize('update-event', $event);
+        //$this->authorize('update-event', $event);
 
+        Gate::authorize('update', $event);
         $event->update(
             $request->validate([
                 'name' => 'sometimes|string|max:255',
@@ -95,8 +98,11 @@ class EventController extends Controller implements HasMiddleware
      */
     public function destroy(Event $event)
     {
+        Gate::authorize('delete', $event);
         $event->delete();
 
-        return response(status: 204);
+        return response()->json([
+            'message' => 'Event deleted successfully!!!'
+        ]);
     }
 }
