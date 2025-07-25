@@ -8,6 +8,7 @@
     "tailwindFunctions": ["clsx", "cn", "cva"],
     "tailwindStylesheet": "resources/css/app.css",
     "tabWidth": 4,
+    "trailingComma": "all",
     "overrides": [
         {
             "files": "**/*.yml",

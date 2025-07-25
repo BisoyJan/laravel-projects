@@ -13,6 +13,9 @@ export default defineConfigWithVueTs(
         rules: {
             'vue/multi-word-component-names': 'off',
             '@typescript-eslint/no-explicit-any': 'off',
+            script: {
+                lang: ['js', 'ts'], // Allow 'js' or 'ts'
+            },
         },
     },
     prettier,
