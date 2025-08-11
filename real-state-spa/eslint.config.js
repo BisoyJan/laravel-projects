@@ -1,5 +1,5 @@
 
-//TODO: need to fix the ESLint configuration to work with Vue 3 and Vite
+//NOTE: need to run npm run fix:eslint to apply the ESLint rules this also auto format when saving
 
 // eslint.config.js
 import pluginVue from 'eslint-plugin-vue'
@@ -49,5 +49,5 @@ export default [
       ],
       'vue/no-v-text-v-html-on-component': 'off',
     },
-  } ]
+  }]
 
