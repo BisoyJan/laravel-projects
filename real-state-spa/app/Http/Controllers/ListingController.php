@@ -49,7 +49,7 @@ class ListingController extends Controller
     //         ]
     //     );
     // }
-    
+
     /**
      * Display the specified resource using route model binding.
      *
@@ -62,7 +62,7 @@ class ListingController extends Controller
         return inertia(
             'Listing/Show',
             [
-                'listings' => $listing
+                'listing' => $listing
             ]
         );
     }
