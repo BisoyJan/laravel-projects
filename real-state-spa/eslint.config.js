@@ -23,7 +23,7 @@ export default [
             vue: pluginVue,
         },
         rules: {
-            indent: ['error', 2],
+            indent: ['error', 4],
             quotes: ['warn', 'single'],
             semi: ['warn', 'never'],
             'no-unused-vars': ['error', {

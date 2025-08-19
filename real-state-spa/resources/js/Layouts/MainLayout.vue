@@ -1,15 +1,15 @@
 <template>
-    <Link href="/">Go to Main</Link>&nbsp;
-    <Link href="/hello">Go to Hello</Link>
+  <Link href="/">Go to Main</Link>&nbsp;
+  <Link href="/hello">Go to Hello</Link>
 
-    <div v-if="flashSuccess" class="success">
-        {{ flashSuccess }}
-    </div>
-    <slot>Default</slot>
+  <div v-if="flashSuccess" class="success">
+    {{ flashSuccess }}
+  </div>
+  <slot>Default</slot>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 
 const page = usePage()

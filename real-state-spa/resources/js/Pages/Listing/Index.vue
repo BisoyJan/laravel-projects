@@ -11,6 +11,6 @@ import { Link } from '@inertiajs/vue3'
 import ListingAddress from '@/Components/ListingAddress.vue'
 
 defineProps({
-  listings: Array,
+    listings: Array,
 })
 </script>

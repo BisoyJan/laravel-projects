@@ -8,6 +8,6 @@
 import ListingAddress from '@/Components/ListingAddress.vue'
 
 defineProps({
-  listing: Object,
+    listing: Object,
 })
 </script>
