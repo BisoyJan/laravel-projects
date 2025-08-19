@@ -6,7 +6,7 @@
 
 <script setup>
 defineProps({
-  listing: Object,
+    listing: Object,
 })
 </script>
 
