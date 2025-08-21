@@ -15,7 +15,7 @@
     </div>
   </header>
 
-  <main class="container mx-auto p-4">
+  <main class="container mx-auto p-4 w-full">
     <div v-if="flashSuccess" class="btn-primary">
       {{ flashSuccess }}
     </div>
