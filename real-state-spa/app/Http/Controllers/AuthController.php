@@ -30,8 +30,13 @@ class AuthController extends Controller
         return redirect()->intended('/listing'); // Automatically redirect to intended route
     }
 
-    public function destroy()
+    public function destroy(Request $request)
     {
+        Auth::logout();
 
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }
