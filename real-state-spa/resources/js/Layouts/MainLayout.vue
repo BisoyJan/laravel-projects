@@ -20,7 +20,8 @@
           </div>
         </div>
 
-        <div v-else>
+        <div v-else class="flex items-center gap-4">
+          <Link :href="route('user-account.create')">Register</Link>
           <Link :href="route('login')">Sign-in</Link>
         </div>
       </nav>
@@ -28,7 +29,7 @@
   </header>
 
   <main class="container mx-auto p-4 w-full">
-    <div v-if="flashSuccess" class="btn-primary">
+    <div v-if="flashSuccess" class="bg-green-100 border border-green-400 text-black dark:text-gray-700 px-4 py-2 rounded relative">
       {{ flashSuccess }}
     </div>
     <slot>Default</slot>
