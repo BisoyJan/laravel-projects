@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ListingController extends Controller
 {
+
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -15,7 +24,8 @@ class ListingController extends Controller
         return inertia(
             'Listing/Index',
             [
-                'listings' => Listing::all()
+                'listings' => Listing::orderByDesc('created_at')
+                    ->paginate(10)
             ]
         );
     }
@@ -25,6 +35,7 @@ class ListingController extends Controller
      */
     public function create()
     {
+        //$this->authorize('create', Listing::class);
         return inertia('Listing/Create');
     }
 
@@ -74,6 +85,12 @@ class ListingController extends Controller
     // Uncomment the following method if you want to use route model binding
     public function show(Listing $listing)
     {
+        // if(Auth::user()->cannot('view', $listing)) {
+        //     abort(403);
+        // }
+
+        //$this->authorize('view', $listing);
+
         return inertia(
             'Listing/Show',
             [

@@ -23,7 +23,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('listings', function (Blueprint $table) {
-            $table->dropForeignIdFor(User::class, 'by_user_id');
+           // Step 1: drop the foreign key
+        $table->dropForeign(['by_user_id']);
+
+        // Step 2: drop the column itself
+        $table->dropColumn('by_user_id');
         });
     }
 };
