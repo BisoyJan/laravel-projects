@@ -2,17 +2,18 @@
 
 @layer components {
     .label {
-      @apply block mb-1 text-gray-500 dark:text-gray-300 font-medium
+        @apply block mb-1 text-gray-500 dark:text-gray-300 font-medium;
     }
 
     .input {
-      @apply block w-full p-3 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-700 bg-white
+        @apply block w-full p-3 rounded-md shadow-sm border border-gray-300 dark:border-gray-600 text-gray-700 bg-white;
     }
 
-    .input-error{
-        @apply text-sm text-red-500 dark:text-red-400
+    .input-error {
+        @apply text-sm text-red-500 dark:text-red-400;
     }
 
+    /* Filter Inputs */
     .input-filter-l {
         @apply placeholder:text-gray-400 dark:placeholder:text-gray-600
                border border-gray-200 dark:border-gray-700
@@ -20,22 +21,31 @@
                font-medium text-gray-600 dark:text-gray-400
                dark:bg-gray-800
                text-base;
-      }
+    }
 
-      .input-filter-r {
+    .input-filter-r {
         @apply placeholder:text-gray-400 dark:placeholder:text-gray-600
                border border-gray-200 dark:border-gray-700 border-l-0
                rounded-r-md
                font-medium text-gray-600 dark:text-gray-400
                dark:bg-gray-800
                text-base;
-      }
+    }
 
-      .btn-normal {
-        @apply bg-gray-600 hover:bg-gray-500 text-white font-medium p-2 rounded-md
-      }
+    /* Buttons */
+    .btn-normal {
+        @apply bg-gray-600 hover:bg-gray-500 text-white font-medium p-2 rounded-md;
+    }
 
     .btn-primary {
-      @apply bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md
+        @apply bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md;
     }
+
+    .btn-outline {
+        @apply p-2 rounded-md border shadow-sm
+               border-gray-300 dark:border-gray-800
+               hover:border-gray-400 hover:bg-gray-50
+               dark:hover:border-gray-700 dark:hover:bg-gray-800;
+    }
+
   }

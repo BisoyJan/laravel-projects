@@ -13,7 +13,7 @@
         <div v-if="user" class="flex items-center gap-4">
           <Link :href="route('listing.create')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium p-2 rounded-md">➕ New Listing</Link>
 
-          <div class="text-sm text-gray-300">{{ user.name }}</div>
+          <Link class="text-sm text-gray-300" :href="route('realtor.listing.index')">{{ user.name }}</Link>
 
           <div>
             <Link :href="route('logout')" method="delete" as="button">Logout</Link>
