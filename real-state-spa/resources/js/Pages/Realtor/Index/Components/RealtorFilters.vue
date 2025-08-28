@@ -3,7 +3,7 @@
     <div class="mb-5 mt-4 flex flex-wrap gap-2">
       <div class="flex flex-nowrap items-center gap-2">
         <input id="deleted" v-model="filterForm.deleted" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-        <label for="deleted">Deleted</label>
+        <label for="deleted">Show Deleted Listings</label>
       </div>
     </div>
   </form>
@@ -12,6 +12,7 @@
 <script setup>
 import { reactive, watch } from 'vue'
 import { router } from '@inertiajs/vue3'
+import { debounce } from 'lodash'
 
 const filterForm = reactive({
     deleted: false,
@@ -19,13 +20,14 @@ const filterForm = reactive({
 
 // Reactive / Ref / Computed either of these 3
 watch(
-    filterForm, () => router.get(
+    // Delay 1 second for sending response
+    filterForm, debounce(() => router.get(
         route('realtor.listing.index'),
         filterForm,
         {
             preserveState: true,
             preserveScroll: true,
         },
-    ),
+    ), 1000),
 )
 </script>
