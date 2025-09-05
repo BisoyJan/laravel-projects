@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
+  <div class="flex flex-col-reverse md:grid md:grid-cols-12 gap-4 pt-4">
     <Box class="col-span-12 md:col-span-7 flex items-center w-full">
       <div v-if="listing.images.length" class="grid grid-cols-2 gap-1">
         <img
@@ -65,6 +65,12 @@
           </div>
         </div>
       </Box>
+
+      <!--NOTE :listing-id= is define using camel case on MakeOffer.vue line 32, but its being passed using kebab case here  -->
+      <MakeOffer
+        v-if="user"
+        :listing-id="listing.id" :price="listing.price"
+      />
     </div>
   </div>
 </template>
@@ -74,9 +80,11 @@ import ListingAddress from '@/Components/ListingAddress.vue'
 import Box from '@/Components/UI/Box.vue'
 import ListingSpace from '@/Components/UI/ListingSpace.vue'
 import Price from '@/Components/UI/Price.vue'
+import MakeOffer from '@/Pages/Listing/Show/Components/MakeOffer.vue'
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useMonthlyPayment } from '@/Composables/useMonthlyPayment'
+import { usePage } from '@inertiajs/vue3'
 
 const interestRate = ref(2.5)
 const duration = ref(25)
@@ -87,4 +95,8 @@ const props = defineProps({
 
 const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.listing.price, interestRate, duration)
 
+const page = usePage()
+const user = computed(
+    () => page.props.user,
+)
 </script>
