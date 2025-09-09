@@ -45,6 +45,15 @@
               Images ({{ listing.images_count }})
             </Link>
           </div>
+
+          <div class="mt-2">
+            <Link
+              :href="route('realtor.listing.show', {listing: listing.id})"
+              class="block w-full btn-outline text-xs font-medium text-center"
+            >
+              Offers ({{ listing.offers_count }})
+            </Link>
+          </div>
         </section>
       </div>
     </Box>
@@ -58,8 +67,8 @@
 <script setup>
 import ListingAddress from '@/Components/ListingAddress.vue'
 import Box from '@/Components/UI/Box.vue'
-import ListingSpace from '@/Components/UI/ListingSpace.vue'
-import Price from '@/Components/UI/Price.vue'
+import ListingSpace from '@/Components/ListingSpace.vue'
+import Price from '@/Components/Price.vue'
 import { Link } from '@inertiajs/vue3'
 import RealtorFilters from '@/Pages/Realtor/Index/Components/RealtorFilters.vue'
 import Pagination from '@/Components/UI/Pagination.vue'

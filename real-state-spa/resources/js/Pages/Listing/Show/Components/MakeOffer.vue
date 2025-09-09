@@ -26,7 +26,7 @@
 
 <script setup>
 import Box from '@/Components/UI/Box.vue'
-import Price from '@/Components/UI/Price.vue'
+import Price from '@/Components/Price.vue'
 import { useForm } from '@inertiajs/vue3'
 import { debounce } from 'lodash'
 import { computed, watch } from 'vue'

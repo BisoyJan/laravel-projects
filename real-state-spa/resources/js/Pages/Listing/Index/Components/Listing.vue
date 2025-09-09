@@ -19,8 +19,8 @@
 import { Link } from '@inertiajs/vue3'
 import ListingAddress from '@/Components/ListingAddress.vue'
 import Box from '@/Components/UI/Box.vue'
-import ListingSpace from '@/Components/UI/ListingSpace.vue'
-import Price from '@/Components/UI/Price.vue'
+import ListingSpace from '@/Components/ListingSpace.vue'
+import Price from '@/Components/Price.vue'
 
 import { useMonthlyPayment } from '@/Composables/useMonthlyPayment'
 

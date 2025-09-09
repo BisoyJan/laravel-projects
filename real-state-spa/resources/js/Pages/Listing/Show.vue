@@ -79,14 +79,14 @@
 <script setup>
 import ListingAddress from '@/Components/ListingAddress.vue'
 import Box from '@/Components/UI/Box.vue'
-import ListingSpace from '@/Components/UI/ListingSpace.vue'
-import Price from '@/Components/UI/Price.vue'
+import ListingSpace from '@/Components/ListingSpace.vue'
+import Price from '@/Components/Price.vue'
 import MakeOffer from '@/Pages/Listing/Show/Components/MakeOffer.vue'
+import OfferMade from './Show/Components/OfferMade.vue'
 
 import { computed, ref } from 'vue'
 import { useMonthlyPayment } from '@/Composables/useMonthlyPayment'
 import { usePage } from '@inertiajs/vue3'
-import OfferMade from './Show/Components/OfferMade.vue'
 
 const interestRate = ref(2.5)
 const duration = ref(25)

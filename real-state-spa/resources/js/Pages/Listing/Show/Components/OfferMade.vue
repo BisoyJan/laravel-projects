@@ -18,7 +18,7 @@
 
 <script setup>
 import Box from '@/Components/UI/Box.vue'
-import Price from '@/Components/UI/Price.vue'
+import Price from '@/Components/Price.vue'
 
 import { computed } from 'vue'
 

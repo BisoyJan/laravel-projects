@@ -39,7 +39,7 @@ Route::prefix('realtor')
         [RealtorListingController::class, 'restore']
     )->withTrashed();
     Route::resource('listing', RealtorListingController::class)
-    ->only(['index', 'edit', 'update', 'destroy', 'create', 'store'])
+    //->only(['index', 'show', 'edit', 'update', 'destroy', 'create', 'store'])
     ->withTrashed();
 
     Route::resource('listing.image', RealtorListingImageController::class)
