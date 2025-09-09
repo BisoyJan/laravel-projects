@@ -68,9 +68,10 @@
 
       <!--NOTE :listing-id= is define using camel case on MakeOffer.vue line 32, but its being passed using kebab case here  -->
       <MakeOffer
-        v-if="user"
-        :listing-id="listing.id" :price="listing.price"
+        v-if="user && !offerMade"
+        :listing-id="listing.id" :price="listing.price" @offer-updated="offer = $event"
       />
+      <OfferMade v-if="user && offerMade" :offer="offerMade" />
     </div>
   </div>
 </template>
@@ -85,15 +86,19 @@ import MakeOffer from '@/Pages/Listing/Show/Components/MakeOffer.vue'
 import { computed, ref } from 'vue'
 import { useMonthlyPayment } from '@/Composables/useMonthlyPayment'
 import { usePage } from '@inertiajs/vue3'
+import OfferMade from './Show/Components/OfferMade.vue'
 
 const interestRate = ref(2.5)
 const duration = ref(25)
 
 const props = defineProps({
     listing: Object,
+    offerMade: Object,
 })
 
-const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(props.listing.price, interestRate, duration)
+const offer = ref(props.listing.price)
+
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(offer, interestRate, duration)
 
 const page = usePage()
 const user = computed(
