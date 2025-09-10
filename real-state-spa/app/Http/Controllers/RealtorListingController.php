@@ -44,7 +44,7 @@ class RealtorListingController extends Controller
         return inertia(
             'Realtor/Show',
             [
-                'listing' => $listing->load('offers')
+                'listing' => $listing->load('offers', 'offers.bidder') // The offers.bidder relationship is loaded here, specifically on Offer.php model line 25 
             ]
         );
     }
