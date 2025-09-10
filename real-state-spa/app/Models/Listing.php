@@ -51,11 +51,13 @@ class Listing extends Model
 
     public function scopeWithoutSold(Builder $query): Builder
     {
-        return $query->doesntHave('offers')
-            ->orWhereHas(
-            'offers',
-            fn(Builder $query) => $query->whereNull('accepted_at')
-                ->whereNull('rejected_at'));
+        // return $query->doesntHave('offers')
+        //     ->orWhereHas(
+        //     'offers',
+        //     fn(Builder $query) => $query->whereNull('accepted_at')
+        //         ->whereNull('rejected_at'));
+
+        return $query->whereNull('sold_at'); // More efficient way to filter unsold listings
     }
 
     public function scopeFilter(Builder $query , array $filters): Builder
