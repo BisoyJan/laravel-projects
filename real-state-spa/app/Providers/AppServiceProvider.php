@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Policies\NotificationPolicy;
 use Gate;
-use Illuminate\Notifications\DatabaseNotification;
+use App\Policies\NotificationPolicy;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 
 class AppServiceProvider extends ServiceProvider
 {
